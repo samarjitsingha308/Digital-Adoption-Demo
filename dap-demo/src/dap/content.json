@@ -1,0 +1,113 @@
+{
+  "walkthroughs": {
+    "getting-started": {
+      "id": "getting-started",
+      "name": "Getting started tour",
+      "description": "A quick guided tour of the core dashboard areas.",
+      "steps": [
+        {
+          "id": "welcome",
+          "title": "Welcome to Northstar",
+          "body": "This quick tour shows the key areas of the dashboard and where to find help at any time.",
+          "target": "[data-dap='topbar-tour']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "kpi",
+          "title": "Track your KPIs",
+          "body": "These cards summarize what matters most. They’re a common place to attach contextual guidance when users are learning.",
+          "target": "[data-dap='kpi-cards']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "filters",
+          "title": "Filters & saved views",
+          "body": "Power users can save filter presets. Walkthrough steps can be anchored to controls like this and explain impact before a user changes anything.",
+          "target": "[data-dap='filters']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "help",
+          "title": "Contextual help is one click away",
+          "body": "Look for the (?) icon across the UI. It opens contextual help with ‘Show me how’ to start a guided walkthrough.",
+          "target": "[data-help-topic='filters-help']",
+          "placement": "right",
+          "page": "dashboard"
+        }
+      ]
+    },
+    "saved-views": {
+      "id": "saved-views",
+      "name": "Saved views walkthrough",
+      "description": "Show how to create and reuse a saved view.",
+      "steps": [
+        {
+          "id": "filters",
+          "title": "Start with filters",
+          "body": "Choose filters to narrow your dataset. We’ll save this as a reusable view.",
+          "target": "[data-dap='filters']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "save",
+          "title": "Save the current view",
+          "body": "Click here to save your current filters as a named view. In a real app, this might open a modal.",
+          "target": "[data-dap='save-view']",
+          "placement": "left",
+          "page": "dashboard"
+        },
+        {
+          "id": "switch",
+          "title": "Switch between views",
+          "body": "Saved views can be shared with teammates and used to standardize reporting.",
+          "target": "[data-dap='view-picker']",
+          "placement": "bottom",
+          "page": "dashboard"
+        }
+      ]
+    },
+    "missing-target-demo": {
+      "id": "missing-target-demo",
+      "name": "Missing target demo",
+      "description": "Demonstrates graceful handling when a selector is not found.",
+      "steps": [
+        {
+          "id": "missing",
+          "title": "Graceful fallback when targets change",
+          "body": "If the UI changes or a feature is gated, the DAP shouldn’t break. This step intentionally points to a missing element.",
+          "target": "[data-dap='this-does-not-exist']",
+          "placement": "bottom",
+          "page": "dashboard",
+          "missingTargetBehavior": "centered"
+        }
+      ]
+    }
+  },
+  "helpTopics": {
+    "filters-help": {
+      "id": "filters-help",
+      "title": "Filters",
+      "summary": "Filters narrow your results and can be saved as reusable views.",
+      "showMeHowWalkthroughId": "saved-views",
+      "readMore": [
+        "Use filters to focus on a segment (e.g., enterprise customers, a region, or a time range).",
+        "Saved views help teams standardize reporting and reduce repetitive setup."
+      ]
+    },
+    "kpis-help": {
+      "id": "kpis-help",
+      "title": "KPI cards",
+      "summary": "These KPIs update in real time as filters change.",
+      "showMeHowWalkthroughId": "getting-started",
+      "readMore": [
+        "KPI cards are great for quick health checks and daily monitoring.",
+        "In production, a DAP might include guidance on interpreting metrics and recommended actions."
+      ]
+    }
+  }
+}
+
