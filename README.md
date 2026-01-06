@@ -16,6 +16,17 @@ npm install
 npm run dev
 ```
 
+## If you’re in a remote workspace / container
+
+Your laptop’s `localhost` is **not** the remote machine’s `localhost`.
+
+- Use your editor’s **Ports/Forwarding** UI to forward **5173**, then open the **forwarded URL**.
+- Or use SSH forwarding:
+
+```bash
+ssh -L 5173:localhost:5173 <your-remote>
+```
+
 ## Where to edit
 
 - **DAP config (JSON)**: `dap-demo/src/dap/content.json`
