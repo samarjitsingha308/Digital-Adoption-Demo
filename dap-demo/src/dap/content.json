@@ -85,8 +85,7 @@
           "missingTargetBehavior": "centered"
         }
       ]
-    }
-    ,
+    },
     "assist-mode": {
       "id": "assist-mode",
       "name": "Assist Mode walkthrough",
@@ -117,6 +116,84 @@
           "page": "onboarding"
         }
       ]
+    },
+    "customers-tour": {
+      "id": "customers-tour",
+      "name": "Customers walkthrough",
+      "description": "Shows how to use the customers table and the detail drawer.",
+      "steps": [
+        {
+          "id": "search",
+          "title": "Find customers quickly",
+          "body": "Search and filters help teams narrow down accounts before taking action.",
+          "target": "[data-dap='customers-search']",
+          "placement": "bottom",
+          "page": "customers"
+        },
+        {
+          "id": "import",
+          "title": "Import customers",
+          "body": "DAP can explain what data is required and what happens after import.",
+          "target": "[data-dap='customers-import']",
+          "placement": "left",
+          "page": "customers"
+        },
+        {
+          "id": "table",
+          "title": "Scan the customer table",
+          "body": "Tables are common DAP surfaces: tooltips on headers, guidance on columns, and “next best action” nudges.",
+          "target": "[data-dap='customers-table']",
+          "placement": "top",
+          "page": "customers"
+        },
+        {
+          "id": "row",
+          "title": "Open the customer drawer",
+          "body": "Click a row to see details. DAP can guide users inside nested UI like drawers or modals.",
+          "target": "[data-dap='customers-row-acme']",
+          "placement": "bottom",
+          "page": "customers"
+        }
+      ]
+    },
+    "campaigns-tour": {
+      "id": "campaigns-tour",
+      "name": "Campaigns walkthrough",
+      "description": "Shows how to create and schedule a campaign.",
+      "steps": [
+        {
+          "id": "create",
+          "title": "Create a campaign",
+          "body": "Empty states are a great place to guide new users toward the primary action.",
+          "target": "[data-dap='campaigns-create']",
+          "placement": "bottom",
+          "page": "campaigns"
+        },
+        {
+          "id": "templates",
+          "title": "Choose a template",
+          "body": "Templates reduce cognitive load. DAP can recommend which template fits a goal.",
+          "target": "[data-dap='campaigns-templates']",
+          "placement": "right",
+          "page": "campaigns"
+        },
+        {
+          "id": "schedule",
+          "title": "Schedule safely",
+          "body": "Explain what timing means (timezone, send window, and expected impact).",
+          "target": "[data-dap='campaigns-schedule']",
+          "placement": "right",
+          "page": "campaigns"
+        },
+        {
+          "id": "launch",
+          "title": "Launch",
+          "body": "Confirm what happens next. DAP can reduce mistakes by summarizing before launch.",
+          "target": "[data-dap='campaigns-launch']",
+          "placement": "top",
+          "page": "campaigns"
+        }
+      ]
     }
   },
   "helpTopics": {
@@ -138,6 +215,47 @@
       "readMore": [
         "KPI cards are great for quick health checks and daily monitoring.",
         "In production, a DAP might include guidance on interpreting metrics and recommended actions."
+      ]
+    },
+    "customers-import-help": {
+      "id": "customers-import-help",
+      "title": "Import customers",
+      "summary": "Upload a CSV to create or update accounts in bulk.",
+      "showMeHowWalkthroughId": "customers-tour",
+      "readMore": [
+        "Recommended columns: company name, domain, plan, seat count, and a primary contact email.",
+        "In production, you’d validate rows and show a preview before applying changes."
+      ]
+    },
+    "customers-health-help": {
+      "id": "customers-health-help",
+      "title": "Health",
+      "summary": "A quick signal of adoption risk based on usage trends and key events.",
+      "showMeHowWalkthroughId": "customers-tour",
+      "readMore": [
+        "Healthy: steady usage and recent key actions.",
+        "Watch: declining usage or incomplete onboarding.",
+        "At risk: sharp drop or critical workflow failures."
+      ]
+    },
+    "campaigns-templates-help": {
+      "id": "campaigns-templates-help",
+      "title": "Templates",
+      "summary": "Templates speed up campaign creation and reduce setup errors.",
+      "showMeHowWalkthroughId": "campaigns-tour",
+      "readMore": [
+        "Choose a template aligned to your goal (activation, adoption, or renewal).",
+        "In a real app, templates would come with recommended audiences and messaging."
+      ]
+    },
+    "campaigns-schedule-help": {
+      "id": "campaigns-schedule-help",
+      "title": "Scheduling",
+      "summary": "Pick when a campaign starts (timezone-aware) and who should receive it.",
+      "showMeHowWalkthroughId": "campaigns-tour",
+      "readMore": [
+        "Avoid scheduling during peak usage if the campaign is disruptive.",
+        "For rollouts, consider a staged approach by segment."
       ]
     }
   },

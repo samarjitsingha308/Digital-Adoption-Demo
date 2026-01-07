@@ -8,6 +8,8 @@ Polished demo of a **Digital Adoption Platform** (DAP) inside a SaaS-style UI:
 - **Graceful missing targets**: demo tour that intentionally points to a missing element
 - **Contextual help**: config-driven (?) icons that open a popover with **Show me how** (starts a walkthrough) + **Read more**
 - **Assist Mode**: form-filling guidance that triggers on hesitation/validation + a gentle “Need help?” nudge
+  - **Customers**: search/filter + import help + table row drawer (walkthrough: `customers-tour`)
+  - **Campaigns**: create campaign panel + templates + scheduling (walkthrough: `campaigns-tour`)
 
 ## Run locally
 

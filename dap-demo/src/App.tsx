@@ -275,6 +275,15 @@ function KpiCard({
 }
 
 function CustomersPage() {
+  const [query, setQuery] = useState('')
+  const [segment, setSegment] = useState<'all' | 'enterprise' | 'growth'>('all')
+  const [selected, setSelected] = useState<null | {
+    name: string
+    plan: string
+    health: string
+    mrr: string
+  }>(null)
+
   const rows = [
     { name: 'Acme Inc', plan: 'Enterprise', health: 'Healthy', mrr: '$24,000' },
     { name: 'Globex', plan: 'Growth', health: 'Watch', mrr: '$8,400' },
@@ -282,24 +291,87 @@ function CustomersPage() {
     { name: 'Umbrella', plan: 'Starter', health: 'Healthy', mrr: '$1,250' },
   ]
 
+  const filtered = rows.filter((r) => {
+    const matchQuery = !query.trim() || r.name.toLowerCase().includes(query.trim().toLowerCase())
+    const matchSegment =
+      segment === 'all'
+        ? true
+        : segment === 'enterprise'
+          ? r.plan === 'Enterprise'
+          : r.plan === 'Growth'
+    return matchQuery && matchSegment
+  })
+
   return (
     <div className="space-y-6">
-      <SectionTitle title="Customers" subtitle="A table view that can be guided step-by-step." />
+      <SectionTitle
+        title="Customers"
+        subtitle="A table workflow with DAP targets, contextual help, and a detail drawer."
+      />
 
       <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-1 flex-wrap items-center gap-2">
+            <div className="relative min-w-[240px] flex-1">
+              <input
+                data-dap="customers-search"
+                className="w-full rounded-xl border border-slate-700 bg-slate-950/40 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search customers…"
+              />
+            </div>
+            <select
+              data-dap="customers-filter"
+              className="rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
+              value={segment}
+              onChange={(e) => setSegment(e.target.value as 'all' | 'enterprise' | 'growth')}
+              aria-label="Segment filter"
+            >
+              <option value="all">All segments</option>
+              <option value="enterprise">Enterprise</option>
+              <option value="growth">Growth</option>
+            </select>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <HelpIcon topicId="customers-import-help" />
+            <button
+              data-dap="customers-import"
+              type="button"
+              className="rounded-xl bg-sky-400 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400"
+              onClick={() => {
+                // demo-only action
+                alert('Demo: would open an import flow (CSV upload + preview).')
+              }}
+            >
+              Import CSV
+            </button>
+          </div>
+        </div>
+
         <div className="overflow-hidden rounded-xl border border-slate-800">
-          <table className="w-full text-left text-sm">
+          <table data-dap="customers-table" className="w-full text-left text-sm">
             <thead className="bg-slate-950/40 text-xs text-slate-400">
               <tr>
                 <th className="px-4 py-3 font-semibold">Customer</th>
                 <th className="px-4 py-3 font-semibold">Plan</th>
-                <th className="px-4 py-3 font-semibold">Health</th>
+                <th className="px-4 py-3 font-semibold">
+                  <span className="inline-flex items-center gap-2">
+                    Health <HelpIcon topicId="customers-health-help" />
+                  </span>
+                </th>
                 <th className="px-4 py-3 font-semibold">MRR</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800">
-              {rows.map((r) => (
-                <tr key={r.name} className="hover:bg-slate-950/40">
+              {filtered.map((r) => (
+                <tr
+                  key={r.name}
+                  data-dap={r.name === 'Acme Inc' ? 'customers-row-acme' : undefined}
+                  className="cursor-pointer hover:bg-slate-950/40"
+                  onClick={() => setSelected(r)}
+                >
                   <td className="px-4 py-3 font-medium text-slate-50">{r.name}</td>
                   <td className="px-4 py-3 text-slate-200">{r.plan}</td>
                   <td className="px-4 py-3 text-slate-200">{r.health}</td>
@@ -310,20 +382,205 @@ function CustomersPage() {
           </table>
         </div>
       </div>
+
+      {selected ? (
+        <div
+          className="fixed inset-0 z-[1050]"
+          onMouseDown={() => setSelected(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="absolute inset-0 bg-slate-950/60" />
+          <div
+            className="absolute right-0 top-0 h-full w-full max-w-md border-l border-slate-800 bg-slate-950/90 p-5 backdrop-blur-md"
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="text-xs font-semibold tracking-wide text-slate-400">Customer</div>
+                <div className="mt-1 text-lg font-semibold text-slate-50">{selected.name}</div>
+                <div className="mt-1 text-sm text-slate-300">
+                  Plan: <span className="font-semibold text-slate-100">{selected.plan}</span> ·{' '}
+                  Health: <span className="font-semibold text-slate-100">{selected.health}</span>
+                </div>
+              </div>
+              <button
+                className="rounded-lg p-2 text-slate-300 hover:bg-slate-800 hover:text-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                onClick={() => setSelected(null)}
+                aria-label="Close drawer"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+                <div className="text-sm font-semibold text-slate-50">Next best actions</div>
+                <div className="mt-2 space-y-2 text-sm text-slate-200">
+                  <div className="rounded-xl border border-slate-800 bg-slate-950/30 p-3">
+                    Review onboarding completion
+                  </div>
+                  <div className="rounded-xl border border-slate-800 bg-slate-950/30 p-3">
+                    Contact admin about usage drop
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="text-sm font-semibold text-slate-50">Billing</div>
+                  <HelpIcon topicId="customers-import-help" />
+                </div>
+                <div className="mt-2 text-sm text-slate-200">
+                  MRR: <span className="font-semibold text-slate-100">{selected.mrr}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }
 
 function CampaignsPage() {
+  const [createOpen, setCreateOpen] = useState(false)
+  const [template, setTemplate] = useState<'activation' | 'adoption' | 'renewal'>('activation')
+  const [schedule, setSchedule] = useState('')
+
   return (
     <div className="space-y-6">
       <SectionTitle
         title="Campaigns"
-        subtitle="Another surface for contextual guidance, tooltips, and inline docs."
+        subtitle="A creation flow that’s perfect for guided walkthroughs and contextual help."
       />
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 text-sm text-slate-200">
-        This page is intentionally lightweight — the DAP experience is the focus.
+
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <div className="text-sm font-semibold text-slate-50">No campaigns yet</div>
+            <div className="mt-1 text-sm text-slate-300">
+              Start with a template to reduce setup time and avoid mistakes.
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <HelpIcon topicId="campaigns-templates-help" />
+            <button
+              data-dap="campaigns-create"
+              className="rounded-xl bg-sky-400 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400"
+              onClick={() => setCreateOpen(true)}
+            >
+              Create campaign
+            </button>
+          </div>
+        </div>
       </div>
+
+      {createOpen ? (
+        <div className="fixed inset-0 z-[1050]" onMouseDown={() => setCreateOpen(false)}>
+          <div className="absolute inset-0 bg-slate-950/60" />
+          <div
+            className="absolute right-0 top-0 h-full w-full max-w-lg border-l border-slate-800 bg-slate-950/90 p-5 backdrop-blur-md"
+            onMouseDown={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="text-xs font-semibold tracking-wide text-slate-400">Campaign</div>
+                <div className="mt-1 text-lg font-semibold text-slate-50">New campaign</div>
+                <div className="mt-1 text-sm text-slate-300">
+                  This panel is instrumented for DAP walkthrough steps.
+                </div>
+              </div>
+              <button
+                className="rounded-lg p-2 text-slate-300 hover:bg-slate-800 hover:text-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                onClick={() => setCreateOpen(false)}
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+
+            <div className="mt-5 space-y-4">
+              <div data-dap="campaigns-templates" className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="text-sm font-semibold text-slate-50">Template</div>
+                  <HelpIcon topicId="campaigns-templates-help" />
+                </div>
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <TemplateCard
+                    title="Activation"
+                    desc="First wins for new users"
+                    selected={template === 'activation'}
+                    onClick={() => setTemplate('activation')}
+                  />
+                  <TemplateCard
+                    title="Adoption"
+                    desc="Drive feature usage"
+                    selected={template === 'adoption'}
+                    onClick={() => setTemplate('adoption')}
+                  />
+                  <TemplateCard
+                    title="Renewal"
+                    desc="Reduce churn risk"
+                    selected={template === 'renewal'}
+                    onClick={() => setTemplate('renewal')}
+                  />
+                </div>
+              </div>
+
+              <label className="block rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+                <div className="mb-1 text-sm font-semibold text-slate-100">Audience</div>
+                <select
+                  className="w-full rounded-xl border border-slate-700 bg-slate-950/40 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  defaultValue="new-admins"
+                >
+                  <option value="new-admins">New admins</option>
+                  <option value="all-users">All users</option>
+                  <option value="power-users">Power users</option>
+                </select>
+              </label>
+
+              <label
+                data-dap="campaigns-schedule"
+                className="block rounded-2xl border border-slate-800 bg-slate-900/40 p-4"
+              >
+                <div className="mb-1 flex items-center justify-between gap-2">
+                  <span className="text-sm font-semibold text-slate-100">Schedule</span>
+                  <HelpIcon topicId="campaigns-schedule-help" />
+                </div>
+                <input
+                  className="w-full rounded-xl border border-slate-700 bg-slate-950/40 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  value={schedule}
+                  onChange={(e) => setSchedule(e.target.value)}
+                  placeholder="e.g., Tomorrow at 9:00 AM (local time)"
+                />
+              </label>
+
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
+                <button
+                  type="button"
+                  className="rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  onClick={() => setCreateOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  data-dap="campaigns-launch"
+                  type="button"
+                  className="rounded-xl bg-sky-400 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  onClick={() => {
+                    alert(`Demo: would launch a ${template} campaign.`)
+                    setCreateOpen(false)
+                  }}
+                >
+                  Launch
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -577,5 +834,33 @@ function TextAreaField({
         placeholder={placeholder}
       />
     </label>
+  )
+}
+
+function TemplateCard({
+  title,
+  desc,
+  selected,
+  onClick,
+}: {
+  title: string
+  desc: string
+  selected: boolean
+  onClick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      className={classNames(
+        'rounded-2xl border p-3 text-left transition',
+        selected
+          ? 'border-sky-400/60 bg-sky-500/10'
+          : 'border-slate-800 bg-slate-950/30 hover:bg-slate-950/50',
+      )}
+      onClick={onClick}
+    >
+      <div className="text-sm font-semibold text-slate-50">{title}</div>
+      <div className="mt-1 text-xs text-slate-300">{desc}</div>
+    </button>
   )
 }
