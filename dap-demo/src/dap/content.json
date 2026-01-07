@@ -86,6 +86,38 @@
         }
       ]
     }
+    ,
+    "assist-mode": {
+      "id": "assist-mode",
+      "name": "Assist Mode walkthrough",
+      "description": "Shows how Assist Mode helps users fill a form when they’re unsure.",
+      "steps": [
+        {
+          "id": "toggle",
+          "title": "Turn on Assist Mode",
+          "body": "Assist Mode can proactively guide users when they hesitate, hit validation errors, or ask for help.",
+          "target": "[data-dap='assist-toggle']",
+          "placement": "bottom",
+          "page": "onboarding"
+        },
+        {
+          "id": "company",
+          "title": "Contextual guidance per field",
+          "body": "Click into a field and pause for a moment. The assistant will suggest what to enter, with an example you can apply.",
+          "target": "[data-assist-field='companyName']",
+          "placement": "right",
+          "page": "onboarding"
+        },
+        {
+          "id": "billing",
+          "title": "Help on validation errors",
+          "body": "If a user enters an invalid email, Assist Mode can explain what’s expected and offer a valid example.",
+          "target": "[data-assist-field='billingEmail']",
+          "placement": "right",
+          "page": "onboarding"
+        }
+      ]
+    }
   },
   "helpTopics": {
     "filters-help": {
@@ -107,6 +139,58 @@
         "KPI cards are great for quick health checks and daily monitoring.",
         "In production, a DAP might include guidance on interpreting metrics and recommended actions."
       ]
+    }
+  },
+  "assist": {
+    "forms": {
+      "customer-onboarding": {
+        "id": "customer-onboarding",
+        "name": "Customer onboarding",
+        "idlePromptMs": 6000,
+        "stuckNudgeMs": 12000,
+        "fields": {
+          "companyName": {
+            "id": "companyName",
+            "label": "Company name",
+            "hint": "Use the legal company name or the name your team recognizes internally.",
+            "example": "Acme Inc."
+          },
+          "website": {
+            "id": "website",
+            "label": "Website",
+            "hint": "A public URL helps us enrich account details. Use the root domain.",
+            "example": "https://acme.com"
+          },
+          "industry": {
+            "id": "industry",
+            "label": "Industry",
+            "hint": "Choose the closest match. This is used only for benchmarking and reporting.",
+            "example": "SaaS"
+          },
+          "teamSize": {
+            "id": "teamSize",
+            "label": "Team size",
+            "hint": "Enter the approximate number of active seats for this account.",
+            "example": "250"
+          },
+          "billingEmail": {
+            "id": "billingEmail",
+            "label": "Billing email",
+            "hint": "Use an address that receives invoices and renewal notices.",
+            "example": "billing@acme.com",
+            "readMore": [
+              "Avoid personal emails when possible (e.g., firstname@…).",
+              "If billing is handled by finance, use a shared inbox."
+            ]
+          },
+          "goal": {
+            "id": "goal",
+            "label": "Primary goal",
+            "hint": "What outcome does the customer want? This helps tailor onboarding guidance.",
+            "example": "Improve onboarding completion for new admins"
+          }
+        }
+      }
     }
   }
 }

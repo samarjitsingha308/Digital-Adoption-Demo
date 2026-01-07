@@ -7,6 +7,7 @@ Polished demo of a **Digital Adoption Platform** (DAP) inside a SaaS-style UI:
 - **Manual start**: “Start walkthrough” button
 - **Graceful missing targets**: demo tour that intentionally points to a missing element
 - **Contextual help**: config-driven (?) icons that open a popover with **Show me how** (starts a walkthrough) + **Read more**
+- **Assist Mode**: form-filling guidance that triggers on hesitation/validation + a gentle “Need help?” nudge
 
 ## Run locally
 
@@ -32,4 +33,5 @@ ssh -L 5173:localhost:5173 <your-remote>
 - **DAP config (JSON)**: `dap-demo/src/dap/content.json`
 - **Walkthrough overlay**: `dap-demo/src/dap/walkthrough/WalkthroughOverlay.tsx`
 - **Contextual help popover**: `dap-demo/src/dap/help/HelpIcon.tsx`
+- **Assist Mode layer**: `dap-demo/src/dap/assist/AssistLayer.tsx`
 - **Demo UI surface / tour targets**: `dap-demo/src/App.tsx`

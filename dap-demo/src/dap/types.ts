@@ -2,7 +2,7 @@ export type WalkthroughPlacement = 'top' | 'right' | 'bottom' | 'left' | 'auto'
 
 export type MissingTargetBehavior = 'centered' | 'skip'
 
-export type AppPageId = 'dashboard' | 'customers' | 'campaigns' | 'settings'
+export type AppPageId = 'dashboard' | 'customers' | 'campaigns' | 'settings' | 'onboarding'
 
 export type WalkthroughStep = {
   id: string
@@ -29,8 +29,30 @@ export type HelpTopic = {
   readMore?: string[]
 }
 
+export type AssistField = {
+  id: string
+  label: string
+  hint: string
+  example?: string
+  readMore?: string[]
+  showMeHowWalkthroughId?: string
+}
+
+export type AssistForm = {
+  id: string
+  name: string
+  idlePromptMs?: number
+  stuckNudgeMs?: number
+  fields: Record<string, AssistField>
+}
+
+export type AssistContent = {
+  forms: Record<string, AssistForm>
+}
+
 export type DapContent = {
   walkthroughs: Record<string, Walkthrough>
   helpTopics: Record<string, HelpTopic>
+  assist: AssistContent
 }
 

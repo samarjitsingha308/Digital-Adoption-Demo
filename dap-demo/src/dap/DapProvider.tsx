@@ -6,6 +6,7 @@ import type { AppPageId, DapContent, Walkthrough, WalkthroughStep } from './type
 type DapState = {
   content: DapContent
   page: AppPageId
+  assistModeEnabled: boolean
   activeWalkthrough: Walkthrough | null
   activeStepIndex: number
   isWalkthroughOpen: boolean
@@ -14,6 +15,7 @@ type DapState = {
 
 type DapActions = {
   setPage: (page: AppPageId) => void
+  setAssistModeEnabled: (enabled: boolean) => void
   startWalkthrough: (walkthroughId: string, opts?: { startAt?: number }) => void
   endWalkthrough: () => void
   nextStep: () => void
@@ -29,6 +31,7 @@ export function DapProvider({ children }: { children: React.ReactNode }) {
   const content = contentJson as DapContent
 
   const [page, setPage] = useState<AppPageId>('dashboard')
+  const [assistModeEnabled, setAssistModeEnabled] = useState(false)
   const [activeWalkthroughId, setActiveWalkthroughId] = useState<string | null>(null)
   const [activeStepIndex, setActiveStepIndex] = useState(0)
   const [openHelpTopicId, setOpenHelpTopicId] = useState<string | null>(null)
@@ -100,12 +103,14 @@ export function DapProvider({ children }: { children: React.ReactNode }) {
   const value: DapApi = {
     content,
     page,
+    assistModeEnabled,
     activeWalkthrough,
     activeStepIndex,
     activeStep,
     isWalkthroughOpen: Boolean(activeWalkthrough),
     openHelpTopicId,
     setPage,
+    setAssistModeEnabled,
     startWalkthrough,
     endWalkthrough,
     nextStep,
