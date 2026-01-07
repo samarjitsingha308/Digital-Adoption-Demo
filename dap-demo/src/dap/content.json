@@ -1,0 +1,315 @@
+{
+  "walkthroughs": {
+    "getting-started": {
+      "id": "getting-started",
+      "name": "Getting started tour",
+      "description": "A quick guided tour of the core dashboard areas.",
+      "steps": [
+        {
+          "id": "welcome",
+          "title": "Welcome to Northstar",
+          "body": "This quick tour shows the key areas of the dashboard and where to find help at any time.",
+          "target": "[data-dap='topbar-tour']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "kpi",
+          "title": "Track your KPIs",
+          "body": "These cards summarize what matters most. They’re a common place to attach contextual guidance when users are learning.",
+          "target": "[data-dap='kpi-cards']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "filters",
+          "title": "Filters & saved views",
+          "body": "Power users can save filter presets. Walkthrough steps can be anchored to controls like this and explain impact before a user changes anything.",
+          "target": "[data-dap='filters']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "help",
+          "title": "Contextual help is one click away",
+          "body": "Look for the (?) icon across the UI. It opens contextual help with ‘Show me how’ to start a guided walkthrough.",
+          "target": "[data-help-topic='filters-help']",
+          "placement": "right",
+          "page": "dashboard"
+        }
+      ]
+    },
+    "saved-views": {
+      "id": "saved-views",
+      "name": "Saved views walkthrough",
+      "description": "Show how to create and reuse a saved view.",
+      "steps": [
+        {
+          "id": "filters",
+          "title": "Start with filters",
+          "body": "Choose filters to narrow your dataset. We’ll save this as a reusable view.",
+          "target": "[data-dap='filters']",
+          "placement": "bottom",
+          "page": "dashboard"
+        },
+        {
+          "id": "save",
+          "title": "Save the current view",
+          "body": "Click here to save your current filters as a named view. In a real app, this might open a modal.",
+          "target": "[data-dap='save-view']",
+          "placement": "left",
+          "page": "dashboard"
+        },
+        {
+          "id": "switch",
+          "title": "Switch between views",
+          "body": "Saved views can be shared with teammates and used to standardize reporting.",
+          "target": "[data-dap='view-picker']",
+          "placement": "bottom",
+          "page": "dashboard"
+        }
+      ]
+    },
+    "missing-target-demo": {
+      "id": "missing-target-demo",
+      "name": "Missing target demo",
+      "description": "Demonstrates graceful handling when a selector is not found.",
+      "steps": [
+        {
+          "id": "missing",
+          "title": "Graceful fallback when targets change",
+          "body": "If the UI changes or a feature is gated, the DAP shouldn’t break. This step intentionally points to a missing element.",
+          "target": "[data-dap='this-does-not-exist']",
+          "placement": "bottom",
+          "page": "dashboard",
+          "missingTargetBehavior": "centered"
+        }
+      ]
+    },
+    "assist-mode": {
+      "id": "assist-mode",
+      "name": "Assist Mode walkthrough",
+      "description": "Shows how Assist Mode helps users fill a form when they’re unsure.",
+      "steps": [
+        {
+          "id": "toggle",
+          "title": "Turn on Assist Mode",
+          "body": "Assist Mode can proactively guide users when they hesitate, hit validation errors, or ask for help.",
+          "target": "[data-dap='assist-toggle']",
+          "placement": "bottom",
+          "page": "onboarding"
+        },
+        {
+          "id": "company",
+          "title": "Contextual guidance per field",
+          "body": "Click into a field and pause for a moment. The assistant will suggest what to enter, with an example you can apply.",
+          "target": "[data-assist-field='companyName']",
+          "placement": "right",
+          "page": "onboarding"
+        },
+        {
+          "id": "billing",
+          "title": "Help on validation errors",
+          "body": "If a user enters an invalid email, Assist Mode can explain what’s expected and offer a valid example.",
+          "target": "[data-assist-field='billingEmail']",
+          "placement": "right",
+          "page": "onboarding"
+        }
+      ]
+    },
+    "customers-tour": {
+      "id": "customers-tour",
+      "name": "Customers walkthrough",
+      "description": "Shows how to use the customers table and the detail drawer.",
+      "steps": [
+        {
+          "id": "search",
+          "title": "Find customers quickly",
+          "body": "Search and filters help teams narrow down accounts before taking action.",
+          "target": "[data-dap='customers-search']",
+          "placement": "bottom",
+          "page": "customers"
+        },
+        {
+          "id": "import",
+          "title": "Import customers",
+          "body": "DAP can explain what data is required and what happens after import.",
+          "target": "[data-dap='customers-import']",
+          "placement": "left",
+          "page": "customers"
+        },
+        {
+          "id": "table",
+          "title": "Scan the customer table",
+          "body": "Tables are common DAP surfaces: tooltips on headers, guidance on columns, and “next best action” nudges.",
+          "target": "[data-dap='customers-table']",
+          "placement": "top",
+          "page": "customers"
+        },
+        {
+          "id": "row",
+          "title": "Open the customer drawer",
+          "body": "Click a row to see details. DAP can guide users inside nested UI like drawers or modals.",
+          "target": "[data-dap='customers-row-acme']",
+          "placement": "bottom",
+          "page": "customers"
+        }
+      ]
+    },
+    "campaigns-tour": {
+      "id": "campaigns-tour",
+      "name": "Campaigns walkthrough",
+      "description": "Shows how to create and schedule a campaign.",
+      "steps": [
+        {
+          "id": "create",
+          "title": "Create a campaign",
+          "body": "Empty states are a great place to guide new users toward the primary action.",
+          "target": "[data-dap='campaigns-create']",
+          "placement": "bottom",
+          "page": "campaigns"
+        },
+        {
+          "id": "templates",
+          "title": "Choose a template",
+          "body": "Templates reduce cognitive load. DAP can recommend which template fits a goal.",
+          "target": "[data-dap='campaigns-templates']",
+          "placement": "right",
+          "page": "campaigns"
+        },
+        {
+          "id": "schedule",
+          "title": "Schedule safely",
+          "body": "Explain what timing means (timezone, send window, and expected impact).",
+          "target": "[data-dap='campaigns-schedule']",
+          "placement": "right",
+          "page": "campaigns"
+        },
+        {
+          "id": "launch",
+          "title": "Launch",
+          "body": "Confirm what happens next. DAP can reduce mistakes by summarizing before launch.",
+          "target": "[data-dap='campaigns-launch']",
+          "placement": "top",
+          "page": "campaigns"
+        }
+      ]
+    }
+  },
+  "helpTopics": {
+    "filters-help": {
+      "id": "filters-help",
+      "title": "Filters",
+      "summary": "Filters narrow your results and can be saved as reusable views.",
+      "showMeHowWalkthroughId": "saved-views",
+      "readMore": [
+        "Use filters to focus on a segment (e.g., enterprise customers, a region, or a time range).",
+        "Saved views help teams standardize reporting and reduce repetitive setup."
+      ]
+    },
+    "kpis-help": {
+      "id": "kpis-help",
+      "title": "KPI cards",
+      "summary": "These KPIs update in real time as filters change.",
+      "showMeHowWalkthroughId": "getting-started",
+      "readMore": [
+        "KPI cards are great for quick health checks and daily monitoring.",
+        "In production, a DAP might include guidance on interpreting metrics and recommended actions."
+      ]
+    },
+    "customers-import-help": {
+      "id": "customers-import-help",
+      "title": "Import customers",
+      "summary": "Upload a CSV to create or update accounts in bulk.",
+      "showMeHowWalkthroughId": "customers-tour",
+      "readMore": [
+        "Recommended columns: company name, domain, plan, seat count, and a primary contact email.",
+        "In production, you’d validate rows and show a preview before applying changes."
+      ]
+    },
+    "customers-health-help": {
+      "id": "customers-health-help",
+      "title": "Health",
+      "summary": "A quick signal of adoption risk based on usage trends and key events.",
+      "showMeHowWalkthroughId": "customers-tour",
+      "readMore": [
+        "Healthy: steady usage and recent key actions.",
+        "Watch: declining usage or incomplete onboarding.",
+        "At risk: sharp drop or critical workflow failures."
+      ]
+    },
+    "campaigns-templates-help": {
+      "id": "campaigns-templates-help",
+      "title": "Templates",
+      "summary": "Templates speed up campaign creation and reduce setup errors.",
+      "showMeHowWalkthroughId": "campaigns-tour",
+      "readMore": [
+        "Choose a template aligned to your goal (activation, adoption, or renewal).",
+        "In a real app, templates would come with recommended audiences and messaging."
+      ]
+    },
+    "campaigns-schedule-help": {
+      "id": "campaigns-schedule-help",
+      "title": "Scheduling",
+      "summary": "Pick when a campaign starts (timezone-aware) and who should receive it.",
+      "showMeHowWalkthroughId": "campaigns-tour",
+      "readMore": [
+        "Avoid scheduling during peak usage if the campaign is disruptive.",
+        "For rollouts, consider a staged approach by segment."
+      ]
+    }
+  },
+  "assist": {
+    "forms": {
+      "customer-onboarding": {
+        "id": "customer-onboarding",
+        "name": "Customer onboarding",
+        "idlePromptMs": 6000,
+        "stuckNudgeMs": 12000,
+        "fields": {
+          "companyName": {
+            "id": "companyName",
+            "label": "Company name",
+            "hint": "Use the legal company name or the name your team recognizes internally.",
+            "example": "Acme Inc."
+          },
+          "website": {
+            "id": "website",
+            "label": "Website",
+            "hint": "A public URL helps us enrich account details. Use the root domain.",
+            "example": "https://acme.com"
+          },
+          "industry": {
+            "id": "industry",
+            "label": "Industry",
+            "hint": "Choose the closest match. This is used only for benchmarking and reporting.",
+            "example": "SaaS"
+          },
+          "teamSize": {
+            "id": "teamSize",
+            "label": "Team size",
+            "hint": "Enter the approximate number of active seats for this account.",
+            "example": "250"
+          },
+          "billingEmail": {
+            "id": "billingEmail",
+            "label": "Billing email",
+            "hint": "Use an address that receives invoices and renewal notices.",
+            "example": "billing@acme.com",
+            "readMore": [
+              "Avoid personal emails when possible (e.g., firstname@…).",
+              "If billing is handled by finance, use a shared inbox."
+            ]
+          },
+          "goal": {
+            "id": "goal",
+            "label": "Primary goal",
+            "hint": "What outcome does the customer want? This helps tailor onboarding guidance.",
+            "example": "Improve onboarding completion for new admins"
+          }
+        }
+      }
+    }
+  }
+}
+
